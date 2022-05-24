@@ -1,40 +1,95 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+        <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/mytheme.css">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+        <style>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section class="cover">
+                    <h1>Title of the presentation</h1>
+                    <h2>Author</h2>
+                    <h3>Event</h3>
+                    <h4>Date</h4>
+                </section>
+                <section>
+                    <h1>Code</h1>
+                    <p>Are you ready for some awesome code?</p>
+                    <pre class="julia"><code>
+test = 41 + 1
+function ret42(x::Int)
+    ret = 42 - x
+    ret + x
+end
+                    </code></pre>
+                </section>
+                <section>
+                    Slide 2
+                    <a href="perdu.com">This is a link</a>
+                </section>
+                <section>
+                    <h1>Title of the slide</h1>
+                    <ul>
+                        <li>First item</li>
+                        <li>Second item</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>This integral is not easy!</p>
+                    \[\begin{equation*}
+                    \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
+                    \end{equation*}\]
+                </section>
+            </div>
+        </div>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script>
+         // More info about initialization & config:
+         // - https://revealjs.com/initialization/
+         // - https://revealjs.com/config/
+         Reveal.initialize({
+             hash: true,
+
+             // Learn about plugins: https://revealjs.com/plugins/
+             plugins: [ RevealHighlight, RevealMath.KaTeX ],
+
+             // CSS properties that can be auto-animated. Position & scale
+             // is matched separately so there's no need to include styles
+             // like top/right/bottom/left, width/height or margin.
+             autoAnimateStyles: [
+                 'opacity',
+                 'color',
+                 'background-color',
+                 'padding',
+                 'font-size',
+                 'line-height',
+                 'letter-spacing',
+                 'border-width',
+                 'border-color',
+                 'outline',
+                 'outline-offset'
+             ],
+
+             help: true,
+
+             autoAnimate: false,
+
+             transition: "slide"
+         });
+        </script>
+    </body>
 </html>

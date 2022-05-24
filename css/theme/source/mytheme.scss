@@ -1,0 +1,55 @@
+/**
+ * Black theme for reveal.js.
+ *
+ * Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+// Hilight.js theme.
+@import "/plugin/highlight/harmonic16-light.css";
+
+// Override theme settings (see ../template/settings.scss)
+
+// Colors.
+$backgroundColor: #FDFDFE;
+$mainColor: #101010;
+$headingColor: $mainColor;
+
+// Fonts.
+$codeFont: "Fira Code", monospace;
+
+// Headings size.
+$baseSize: 1.00em;
+$heading1Size: 2.00 * $baseSize;
+$heading2Size: 1.50 * $baseSize;
+$heading3Size: 1.25 * $baseSize;
+$heading4Size: $baseSize;
+$linkColor: #009acd;
+$linkColorHover: lighten( $linkColor, 20% );
+
+$mainFont: "Fira Sans", sans-serif;
+$headingFont: "Libre Baskerville", serif;
+$headingTextShadow: none;
+$headingLetterSpacing: -0.03em;
+$headingTextTransform: none;
+$selectionBackgroundColor: #e7ad52;
+
+// Change text colors against light slide backgrounds
+//@include light-bg-text-color(#222);
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+@import "../../perso";
