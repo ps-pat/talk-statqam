@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,9 +10,6 @@
         <link rel="stylesheet" href="dist/reveal.css">
         <link rel="stylesheet" href="dist/theme/mytheme.css">
 
-        <style>
-
-        </style>
     </head>
     <body>
         <div class="reveal">
@@ -25,8 +22,8 @@
                 </section>
                 <section>
                     <h1>Code</h1>
-                    <p>Are you ready for some awesome code?</p>
-                    <pre class="julia"><code>
+                    <p>Are you ready for some awesome <code class="julia">content = "code"</code>?</p>
+                    <pre class="julia"><code data-trim>
 test = 41 + 1
 function ret42(x::Int)
     ret = 42 - x
@@ -35,24 +32,33 @@ end
                     </code></pre>
                 </section>
                 <section>
-                    Slide 2
-                    <a href="perdu.com">This is a link</a>
+                    Slide 2<br>
+                    <a href="https://www.perdu.com">This is a link</a>
                 </section>
                 <section>
                     <h1>Title of the slide</h1>
+                    <p>Sample unordered list:</p>
                     <ul>
                         <li>First item</li>
                         <li>Second item</li>
                     </ul>
                 </section>
                 <section>
-                    <p>This integral is not easy!</p>
-                    \[\begin{equation*}
+                    <p>This integral is not as easy as \( 2 + \frac 4 2 = 4 \) &#x1F614;</p>
+                    $$\begin{equation*}
                     \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
-                    \end{equation*}\]
+                    \end{equation*}$$
                 </section>
             </div>
         </div>
+
+        <div id="logo"><p>
+            Author (Institution)
+            <span class="separator"></span>
+            Session
+            <span class="separator"></span>
+            Event (Venue)
+        </p></div>
 
         <script src="dist/reveal.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
@@ -71,24 +77,29 @@ end
              // is matched separately so there's no need to include styles
              // like top/right/bottom/left, width/height or margin.
              autoAnimateStyles: [
-                 'opacity',
-                 'color',
-                 'background-color',
-                 'padding',
-                 'font-size',
-                 'line-height',
-                 'letter-spacing',
-                 'border-width',
-                 'border-color',
-                 'outline',
-                 'outline-offset'
+                 "opacity",
+                 "color",
+                 "background-color",
+                 "padding",
+                 "font-size",
+                 "line-height",
+                 "letter-spacing",
+                 "border-width",
+                 "border-color",
+                 "border-radius",
+                 "outline",
+                 "outline-offset"
              ],
 
              help: true,
 
              autoAnimate: false,
 
-             transition: "slide"
+             transition: "slide",
+
+             katex: {
+                 local: "node_modules/katex"
+             }
          });
         </script>
     </body>
