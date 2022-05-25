@@ -6,6 +6,17 @@
     text-align: left;
 }
 
+/* Cover page */
+.cover h2 {
+    font-size: 0.75em;
+    margin-left: 1em;
+}
+
+.cover h3 {
+    font-size: 0.5em;
+    margin-left: 4em;
+}
+
 /* Logo */
 #logo {
     position: absolute;

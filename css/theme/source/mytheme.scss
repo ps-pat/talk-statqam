@@ -31,10 +31,12 @@ $codeFont: "Fira Code", monospace;
 
 // Headings size.
 $baseSize: 1.00em;
-$heading1Size: 2.00 * $baseSize;
-$heading2Size: 1.50 * $baseSize;
-$heading3Size: 1.25 * $baseSize;
+$heading1Size: 1.50 * $baseSize;
+$heading2Size: 1.2 * $baseSize;
+$heading3Size: 1.1 * $baseSize;
 $heading4Size: $baseSize;
+
+// Links
 $linkColor: #009acd;
 $linkColorHover: lighten( $linkColor, 20% );
 
