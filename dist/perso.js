@@ -1,4 +1,3 @@
-// Add class `r-fit-text` to the first `h1` element descendant of `title`.
 function formatTitleSlides(obj) {
   for (const section of obj.querySelectorAll("section.title-slide")) {
     // Set background.
@@ -7,3 +6,10 @@ function formatTitleSlides(obj) {
 }
 
 formatTitleSlides(document);
+
+$(document).ready(function() {
+
+  // Add link to references.
+  $(".reference").wrapInner("<a href=#/references></a>");
+
+});

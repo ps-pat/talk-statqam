@@ -434,6 +434,12 @@ nav ol li:after, nav ul li:after {
   vertical-align: middle;
 }
 
+/* References */
+.reference {
+  vertical-align: super;
+  font-size: smaller;
+}
+
 a:hover {
   text-decoration: underline;
   text-decoration-color: #e65100;
