@@ -445,8 +445,9 @@ nav ol li:after, nav ul li:after {
   font-size: smaller;
 }
 
-#references ol {
+#references ol li {
   font-size: 0.5em;
+  margin: 1em 0;
 }
 
 #references i {
