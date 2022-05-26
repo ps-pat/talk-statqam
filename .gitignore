@@ -7,5 +7,12 @@ out/
 .svn
 log/*.log
 tmp/**
-node_modules/
+node_modules/*
 .sass-cache
+
+!node_modules/katex/
+node_modules/katex/*
+!node_modules/katex/dist/
+node_modules/katex/dist/*
+!node_modules/katex/dist/katex.min.css
+!node_modules/katex/dist/katex.min.js
