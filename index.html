@@ -62,6 +62,16 @@ end
                     \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
                     \end{equation*}$$
                 </section>
+                <section data-markdown>
+                    <textarea data-template>
+## Slide 1
+A paragraph with some text and a [link](http://hakim.se).
+---
+## Slide 2
+---
+## Slide 3
+                    </textarea>
+                </section>
             </div>
         </div>
 
@@ -78,6 +88,7 @@ end
         <script src="dist/reveal.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
         <script src="node_modules/reveal.js-menu/menu.js"></script>
         <script src="dist/perso.js"></script>
         <script>
@@ -88,7 +99,7 @@ end
              hash: true,
 
              // Learn about plugins: https://revealjs.com/plugins/
-             plugins: [ RevealHighlight, RevealMath.KaTeX, RevealMenu ],
+             plugins: [ RevealHighlight, RevealMath.KaTeX, RevealMenu, RevealMarkdown ],
 
              menu: {
                  // Specifies which side of the presentation the menu will
