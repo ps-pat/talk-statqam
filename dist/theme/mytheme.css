@@ -429,16 +429,19 @@ a:hover {
 }
 
 /* Lists */
-ul {
+ul, ol {
   padding-left: 1em;
+}
+
+ul li::marker, ol li::marker {
+  color: #8fbcbb;
 }
 
 ul li::marker {
   content: "#'  ";
-  color: #8fbcbb;
 }
 
-ul li:after {
+ul li:after, ol li:after {
   content: ";";
   color: #ebcb8b;
 }
