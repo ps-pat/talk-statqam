@@ -7,7 +7,7 @@
 }
 
 /* Cover slide */
-.cover h2, .title-slide h2 {
+.cover h2 {
     font-size: 0.75em;
     margin-left: 1em;
 }
@@ -20,6 +20,11 @@
 /* Title slides */
 .reveal .title-slide > * {
     color: #eee;
+    text-align: center;
+}
+
+.title-slide h2 {
+    font-size: 0.75em;
 }
 
 /* Menu */
@@ -92,6 +97,14 @@ nav ol li:after, nav ul li:after {
 .reference {
     vertical-align: super;
     font-size: smaller;
+}
+
+#references ol {
+    font-size: 0.5em;
+}
+
+#references i {
+    font-style: italic;
 }
 
 a:hover {
