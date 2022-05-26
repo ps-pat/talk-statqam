@@ -363,7 +363,7 @@
   text-align: left;
 }
 
-/* Cover slide. */
+/* Cover slide */
 .cover h2, .title-slide h2 {
   font-size: 0.75em;
   margin-left: 1em;
@@ -374,9 +374,20 @@
   margin-left: 4em;
 }
 
-/* Title slides. */
+/* Title slides */
 .reveal .title-slide > * {
   color: #eee;
+}
+
+/* Menu */
+.reveal .slide-menu-button {
+  top: 30px;
+  bottom: auto !important;
+  font-size: 44px !important;
+}
+
+nav ol li:after, nav ul li:after {
+  content: "";
 }
 
 /* Logo */

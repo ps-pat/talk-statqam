@@ -98,6 +98,7 @@
     }
   },
   "dependencies": {
-    "katex": "^0.15.6"
+    "katex": "^0.15.6",
+    "reveal.js-menu": "^2.1.0"
   }
 }
