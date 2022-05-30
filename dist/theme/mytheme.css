@@ -443,6 +443,7 @@ nav ol li:after, nav ul li:after {
 .reference {
   vertical-align: super;
   font-size: smaller;
+  cursor: pointer;
 }
 
 #references ol li {
