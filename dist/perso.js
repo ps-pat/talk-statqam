@@ -42,3 +42,10 @@ function gotoref(refidx) {
       }
   }
 }
+
+// Generate QR code.
+const qrcode = new QRCode("qrcode", {
+  width: 75,
+  height: 75,
+  correctLevel: QRCode.CorrectLevel.L
+});
