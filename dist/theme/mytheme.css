@@ -488,6 +488,8 @@ ul li::marker {
 ul li:after, ol li:after {
   content: ";";
   color: #ebcb8b;
+  display: inline-block;
+  width: 0;
 }
 
 /* Code */
