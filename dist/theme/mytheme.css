@@ -531,3 +531,17 @@ p code, pre code.hljs {
   font-size: var(--r-main-font-size);
   line-height: 1em;
 }
+
+/* Small screen */
+@media only screen and (max-width: 599px) {
+  #logo {
+    display: none;
+  }
+
+  #qrcode {
+    width: 50px;
+    height: 50px;
+    top: 25px;
+    right: 25px;
+  }
+}
