@@ -27,6 +27,12 @@
     font-size: 0.75em;
 }
 
+/* Overboxes */
+.obox {
+    background-color: #fdfdfe;
+    padding: 24px;
+}
+
 /* Menu */
 .reveal .slide-menu-button {
     top: 30px;
