@@ -397,7 +397,10 @@
   font-size: 44px !important;
 }
 
-nav ol li:after, nav ul li:after {
+nav ol li:after,
+nav ol li:last-child:after,
+nav ul li:after,
+nav ul li:last-child:after {
   content: "";
 }
 
@@ -473,6 +476,10 @@ nav ol li:after, nav ul li:after {
   font-style: italic;
 }
 
+#references li:after {
+  content: "";
+}
+
 a:hover {
   text-decoration: underline;
   text-decoration-color: #e65100;
@@ -496,6 +503,11 @@ ul li:after, ol li:after {
   color: #ebcb8b;
   display: inline-block;
   width: 0;
+}
+
+ul li:last-child:after,
+ol li:last-child:after {
+  content: ".";
 }
 
 /* Code */
