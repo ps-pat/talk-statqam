@@ -1,0 +1,3 @@
+[submodule "plugin/spotlight"]
+	path = plugin/spotlight
+	url = git@github.com:denniskniep/reveal.js-plugin-spotlight.git

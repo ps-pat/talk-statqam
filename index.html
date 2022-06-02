@@ -112,6 +112,7 @@ Another reference<span class="reference">3</span>
         <script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
         <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/spotlight/spotlight.js"></script>
         <script src="node_modules/reveal.js-menu/menu.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -252,6 +253,55 @@ Another reference<span class="reference">3</span>
                  // font-awesome library the 'loadIcons' option can be set to false
                  // and the menu will not attempt to load the font-awesome library.
                  loadIcons: true
+             },
+
+             spotlight: {
+                 // size of the spotlight
+                 size: 60,
+
+                 // true: Locks the mouse pointer inside the presentation
+                 // there is by design (Pointer Lock API) no spotlightCursor and presentingCursor
+                 // displayed regardless of the configured values
+                 lockPointerInsideCanvas: false,
+
+                 // toggle spotlight by holding down the mouse key
+                 toggleSpotlightOnMouseDown: true,
+
+                 // the keyCode pressed and held to turn on spotlight, disabled when set to false
+                 // Problems with this config? Maybe your touchpad is disabled on keypress?
+                 spotlightOnKeyPressAndHold: false,
+
+                 // choose the cursor when spotlight is on. Maybe "crosshair"?
+                 spotlightCursor: 'crosshair',
+
+                 // choose the cursor when spotlight is off and in presentation mode. Maybe "default"?
+                 presentingCursor: 'none',
+
+                 // true: initially in presentation mode, will also be ture if this is not set and toggleSpotlightOnMouseDown is true
+                 initialPresentationMode: true,
+
+                 // true: disable selecting in presentation mode
+                 disablingUserSelect: true,
+
+                 // set to a number as transition duration in ms to enable fade in and out, disabled when set to false
+                 fadeInAndOut: 100,
+
+                 // enable pointer mode
+                 useAsPointer: false,
+
+                 // pointer color (If pointer mode enabled)
+                 pointerColor: 'red'
+             },
+
+             keyboard: {
+                 // alternative to toggleSpotlightOnMouseDown:
+                 // toggle spotlight by pressing key 'c'
+                 67: function() { RevealSpotlight.toggleSpotlight() },
+
+                 // enter/leave presentation mode by pressing key 'p'
+                 80: function() {
+                     RevealSpotlight.togglePresentationMode();
+                 },
              },
 
              // CSS properties that can be auto-animated. Position & scale
