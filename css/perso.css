@@ -141,19 +141,20 @@ a:hover {
 }
 
 /* Lists */
-ul, ol {
+ul, ol, dl {
     padding-left: 1em;
 }
 
-ul li::marker, ol li::marker {
+ul li::marker, ol li::marker, dl dt::marker {
     color: #8fbcbb;
 }
 
-ul li::marker {
+ul li::marker, dl dt::marker {
     content: "#'  ";
+    font-weight: normal;
 }
 
-ul li:after, ol li:after {
+ul li:after, ol li:after, dl dd:after {
     content: ";";
     color: #ebcb8b;
 
@@ -162,8 +163,19 @@ ul li:after, ol li:after {
 }
 
 ul li:last-child:after,
-ol li:last-child:after {
+ol li:last-child:after,
+dl dd:last-child:after{
     content: ".";
+}
+
+dl dt {
+    display: list-item;
+}
+
+dl dt:after {
+    content: ":";
+    color: #ebcb8b;
+    margin-left: 5px;
 }
 
 /* Code */
