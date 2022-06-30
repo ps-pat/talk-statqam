@@ -189,6 +189,7 @@ pre {
     border-radius: var(--b-radius);
     border-color: #e65100;
     overflow: hidden;
+    text-overflow: ellipsis;
 
     background-color: rgba(124, 125, 126, 0.1);
 }

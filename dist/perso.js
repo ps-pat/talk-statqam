@@ -30,6 +30,9 @@ $(function() {
     $(ref).wrapInner(`<a role="button" onclick="gotoref(${refidx})"></a>`);
   }
 
+  // Change the class of julia-repl prompt.
+  $(".hljs-meta:contains('julia>')").addClass("hljs-repl").removeClass("hljs-meta");
+
 });
 
 // Got to the slide containing the reference.
