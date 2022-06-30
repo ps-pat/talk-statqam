@@ -463,8 +463,9 @@ nav ul li:last-child:after {
 /* References */
 .reference {
   vertical-align: super;
-  font-size: smaller;
+  font-size: 30px;
   cursor: pointer;
+  margin-left: 0.25ex;
 }
 
 #references ol li {
