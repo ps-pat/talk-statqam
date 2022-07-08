@@ -171,12 +171,20 @@ dl dd:last-child:after{
 
 dl dt {
     display: list-item;
+
+    float: left;
+    clear:left
+}
+
+dl dd {
+    padding-left: 1ex;
 }
 
 dl dt:after {
     content: ":";
     color: #ebcb8b;
     margin-left: 5px;
+    margin-right: 1ex;
 }
 
 /* Code */
