@@ -520,7 +520,8 @@ dl dt {
 }
 
 dl dd {
-  padding-left: 1ex;
+  margin-left: 0 !important;
+  float: left;
 }
 
 dl dt:after {
