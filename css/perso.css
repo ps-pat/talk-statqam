@@ -6,6 +6,15 @@
     text-align: left;
 }
 
+em {
+    font-style: normal !important;
+    text-decoration: underline #9558b2 dashed 5px;
+}
+
+i:not(.fas):not(.fa-circle) {
+    font-style: italic !important;
+}
+
 /* Cover slide */
 .cover h2 {
     font-size: 0.75em;
@@ -31,6 +40,8 @@
 .obox {
     background-color: #fdfdfe;
     padding: 24px;
+
+    border: 10px solid #9558b2;
 }
 
 /* Menu */
@@ -118,8 +129,9 @@ nav ul li:last-child:after,{
 
 .reference {
     vertical-align: super;
-    font-size: smaller;
+    font-size: 30px;
     cursor: pointer;
+    margin-left: 0.25ex
 }
 
 #references ol li {
@@ -141,19 +153,20 @@ a:hover {
 }
 
 /* Lists */
-ul, ol {
+ul, ol, dl {
     padding-left: 1em;
 }
 
-ul li::marker, ol li::marker {
+ul li::marker, ol li::marker, dl dt::marker {
     color: #8fbcbb;
 }
 
-ul li::marker {
+ul li::marker, dl dt::marker {
     content: "#'  ";
+    font-weight: normal;
 }
 
-ul li:after, ol li:after {
+ul li:after, ol li:after, dl dd:after {
     content: ";";
     color: #ebcb8b;
 
@@ -162,29 +175,87 @@ ul li:after, ol li:after {
 }
 
 ul li:last-child:after,
-ol li:last-child:after {
+ol li:last-child:after,
+dl dd:last-child:after{
     content: ".";
 }
 
+/* Description lists */
+dl {
+    display: flex !important;
+    flex-flow: row wrap;
+}
+
+/* TODO: compute flex-basis automatically */
+dl dt {
+    display: list-item;
+
+    flex-basis: 20%;
+    text-align: left;
+}
+
+dl dd {
+    flex-basis: 70%;
+    flex-grow: 1;
+    margin: 0 !important;
+}
+
+dl dt:after {
+    content: ":";
+    color: #ebcb8b;
+
+    float: right;
+    margin-left: 0;
+    margin-right: 1ex;
+}
+
+/* Nested description lists */
+
+dl dl {
+    margin: 0 0 0 1ex !important;
+    padding: 0 !important;
+}
+
+dl dl dt {
+    font-weight: normal !important;
+}
+
+dl dl dt:after {
+    font-weight: bold;
+}
+
+dl dl dt::marker {
+    content: "";
+}
+
+.no-after:after {
+    content: "";
+}
+
+.column:after {
+    content: ":" !important;
+}
+
 /* Code */
-pre {
+pre.code-wrapper {
     border-radius: var(--b-radius);
 }
 
-.reveal pre code, p code {
+pre.code-wrapper code, code.hljs {
     border-style: dotted;
-    border-width: 1px;
+    border-width: 2px;
     border-radius: var(--b-radius);
     border-color: #e65100;
     overflow: hidden;
+    text-overflow: ellipsis;
 
     background-color: rgba(124, 125, 126, 0.1);
 }
 
-p code {
+code.hljs {
     display: inline;
     padding: 0;
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 .hljs-symbol,
