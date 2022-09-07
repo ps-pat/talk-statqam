@@ -6,6 +6,15 @@
     text-align: left;
 }
 
+em {
+    font-style: normal !important;
+    text-decoration: underline #9558b2 dashed 5px;
+}
+
+i:not(.fas):not(.fa-circle) {
+    font-style: italic !important;
+}
+
 /* Cover slide */
 .cover h2 {
     font-size: 0.75em;
@@ -31,6 +40,8 @@
 .obox {
     background-color: #fdfdfe;
     padding: 24px;
+
+    border: 10px solid #9558b2;
 }
 
 /* Menu */
@@ -175,6 +186,7 @@ dl {
     flex-flow: row wrap;
 }
 
+/* TODO: compute flex-basis automatically */
 dl dt {
     display: list-item;
 
@@ -208,12 +220,20 @@ dl dl dt {
     font-weight: normal !important;
 }
 
+dl dl dt:after {
+    font-weight: bold;
+}
+
 dl dl dt::marker {
     content: "";
 }
 
 .no-after:after {
     content: "";
+}
+
+.column:after {
+    content: ":" !important;
 }
 
 /* Code */
