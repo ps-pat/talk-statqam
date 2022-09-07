@@ -577,13 +577,13 @@ dl dl dt::marker {
 }
 
 /* Code */
-pre {
+pre.code-wrapper {
   border-radius: var(--b-radius);
 }
 
-.reveal pre code, p code {
+pre.code-wrapper code, code.hljs {
   border-style: dotted;
-  border-width: 1px;
+  border-width: 2px;
   border-radius: var(--b-radius);
   border-color: #e65100;
   overflow: hidden;
@@ -591,10 +591,10 @@ pre {
   background-color: rgba(124, 125, 126, 0.1);
 }
 
-p code {
+code.hljs {
   display: inline;
   padding: 0;
-  border-radius: 5px;
+  border-radius: 0;
 }
 
 .hljs-symbol,
