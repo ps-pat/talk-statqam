@@ -155,6 +155,7 @@ a:hover {
 /* Lists */
 ul, ol, dl {
     padding-left: 1em;
+    line-height: 3ex;
 }
 
 ul li::marker, ol li::marker, dl dt::marker {
@@ -229,7 +230,7 @@ dl dl dt::marker {
 }
 
 .no-after:after {
-    content: "";
+    content: "" !important;
 }
 
 .column:after {
@@ -239,9 +240,11 @@ dl dl dt::marker {
 /* Code */
 pre.code-wrapper {
     border-radius: var(--b-radius);
+
+    width: 100%;
 }
 
-pre.code-wrapper code, code.hljs {
+pre.code-wrapper code.hljs, code.hljs {
     border-style: dotted;
     border-width: 2px;
     border-radius: var(--b-radius);
@@ -249,12 +252,14 @@ pre.code-wrapper code, code.hljs {
     overflow: hidden;
     text-overflow: ellipsis;
 
+    padding: 0.5em !important;
+
     background-color: rgba(124, 125, 126, 0.1);
 }
 
 code.hljs {
     display: inline;
-    padding: 0;
+    padding: 0 !important;
     border-radius: 0;
 }
 
