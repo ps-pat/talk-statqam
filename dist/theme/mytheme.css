@@ -506,7 +506,7 @@ ul li::marker, ol li::marker, dl dt::marker {
   color: #8fbcbb;
 }
 
-ul li::marker, dl dt::marker {
+ul > li::marker, dl > dt::marker {
   content: "#'  ";
   font-weight: normal;
 }
