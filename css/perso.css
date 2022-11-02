@@ -44,7 +44,7 @@ i:not(.fas):not(.fa-circle) {
     border: 10px solid #9558b2;
     border-radius: 10px;
 
-    overflow: scroll;
+    overflow: auto;
 
     position: absolute;
     left: 50%;
