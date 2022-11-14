@@ -4,76 +4,602 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>My Presentation</title>
+    <title>PRS coalescent</title>
 
     <link rel="stylesheet" href="dist/reset.css">
     <link rel="stylesheet" href="dist/reveal.css">
     <link rel="stylesheet" href="dist/theme/mytheme.css" id="theme">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"
+            integrity="sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
+
+    <style>
+      .katex-display {
+          margin: 0.5em 0 !important;
+      }
+
+      #cats {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          column-gap: 5%;
+      }
+
+      #cats > img {
+          margin: 0;
+          padding: 0;
+
+          height: 250px;
+     }
+
+      #cats-trees {
+          display: flex;
+          align-items: center;
+          justify-items: center;
+
+          max-width: 100vw;
+          min-width: 100vw;
+          margin: 0;
+          padding: 0;
+      }
+
+      #cats-trees img {
+          transition-duration: 0s;
+      }
+
+      @keyframes flickerAnimation {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+      }
+
+      @keyframes ineqsAnimation {
+          0%, 100% { content: "<"; }
+          33% { content: "="; }
+          66% { content: ">"; }
+      }
+
+      #cats-rels {
+          font-size: 100px;
+      }
+
+      #cat-ineqs::after {
+          content: "";
+          animation: ineqsAnimation 3s linear infinite,
+                     flickerAnimation 1s linear infinite;
+      }
+
+      #sample-pureCoal {
+          position: relative;
+
+          height: 500px;
+          width: 400px;
+      }
+
+      #sample-pureCoal img {
+          position: absolute;
+          bottom: 10%;
+          left: 0;
+          right: 0;
+
+          width: 100%;
+
+          transition-duration: 0s;
+      }
+
+      #sample-mutation {
+          position: relative;
+
+          width: 950px;
+          height: 600px;
+      }
+
+      #sample-mutation img {
+          position: absolute;
+          bottom: 0;
+          top: 0;
+          left: 0;
+          right: 0;
+
+          width: 100%;
+
+          transition-duration: 0s;
+      }
+
+      #sample-recombination {
+          position: relative;
+
+          width: 950px;
+          height: 600px;
+      }
+
+      #sample-recombination img {
+          position: absolute;
+          bottom: 10%;
+          left: 0;
+          right: 0;
+
+          transition-duration: 0s;
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
         <section class="cover">
-          <h1>Title of the presentation</h1>
-          <h2>Author</h2>
-          <h3>Event</h3>
-          <h3>Date</h3>
+          <h1>Score de risque polygénique et épistasie: une approche
+            "model free" basée sur le processus de coalescence</h1>
+          <h2><a href="http://www.patrickfournier.ca">Patrick Fournier</a>, <a href="http://fabricelarribe.uqam.ca/">Fabrice Larribe</a></h2>
+          <h3>Séminaire <a href="https://statqam.uqam.ca/">STATQAM</a></h3>
+          <h3>17 novembre 2022</h3>
         </section>
         <section>
           <section class="title-slide">
-            <h1>Theme of the next vertical slides</h1>
-            <h2>Why not have a subtitle too?</h2>
+            <h1>Génétique et processus de coalescence</h1>
+          </section>
+
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Phénotype</h1>
+            <ul>
+              <li>Propriété observable d'un organisme</li>
+              <li>Déterminé par <em>génotype</em> (i.e. bagage génétique) &amp; environement</li>
+            </ul>
+            <div id="cats">
+              <img src="assets/cat1.jpg", alt="Cat 1">
+              <img src="assets/cat2.jpg", alt="Cat 2">
+              <img src="assets/cat3.jpg", alt="Cat 3">
+            </div>
+              </div>
+
+              <div id="cats-trees" class="fragment fade-in obox" data-fragment-index="2">
+                <div id="cat-tree-left" class="r-stack">
+                  <img src="assets/cats-tree1.png", alt="Cat tree 1"
+                       class="fragment fade-in-then-out" data-fragment-index="2">
+                  <img src="assets/cats-tree1-prob.png", alt="Cat tree 1 prob"
+                       class="fragment" data-fragment-index="3">
+                </div>
+                <div id="cats-rels" class="r-stack">
+                  <span id="cat-ineqs" class="fragment fade-in-then-out" data-fragment-index="3"></span>
+                  <span id="cat-answer" class="fragment" data-fragment-index="4">></span>
+                </div>
+                <div id="cat-tree-right" class="r-stack">
+                  <img src="assets/cats-tree2.png", alt="Cat tree 2"
+                       class="fragment fade-in-then-out" data-fragment-index="2">
+                  <img src="assets/cats-tree2-prob.png", alt="Cat tree 2 prob"
+                       class="fragment" data-fragment-index="3">
+              </div>
+            </div>
           </section>
           <section>
-            <h1>Title of the slide</h1>
-            Some content in the form of an ordered list:
-            <ol>
-              <li>First very important point</li>
-              <li>Second less important point</li>
-            </ol>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Génome</h1>
+                <ul>
+                  <li>Information génétique d'un organisme</li>
+                  <li>ADN, ARN</li>
+                  <li>Humain: brins d'ADN (chromosomes)</li>
+                  <li>Pour nous: mots sur un alphabet de 4 lettres: \(\{ A, C, X, G \}\)</li>
+                  <li>\( X = T \) (ADN), \( X = U \) (ARN)...</li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <h2>Exemple: Section du génome de la perruche ondulée
+                  (ADN)<span class="reference">1</span></h2>
+                <img src="assets/budgie.png" alt="Génome perruche" style="display: block; margin: auto;">
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <h2>Exemple: Début de la séquence de référence pour SRAS-CoV-2
+                  (ARN)<span class="reference">2</span></h2>
+                  <pre style="font-size: 35px;">
+CGGUGACGCAUACAAAACAUUCCCACCAUACCUUCCCA
+GGUAACAAACCAACCAACUUUCGAUCUCUUGUAGAUCU
+GUUCUCUAAACGAACUUUAAAAUCUGUGUGGCUGUCAC
+UCGGCUGCAUGCUUAGUGCACUCACGCAGUAUAAUUAA
+&hellip;</pre>
+                  Taille totale \( \approx 7.4 \) KiB
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="4">
+                <h2>Exemple: Section de la séquence codant pour la protéine S de SRAS-CoV-2
+                  (ARN)<span class="reference">3</span></h2>
+                <pre style="font-size: 35px;">
+&hellip;
+ΨGAACCΨGACCACCAGAACACAGCΨGCCΨCCAGCCΨAC
+ACCAACAGCΨΨΨACCAGAGGCGΨGΨACΨACCCCGACAA
+GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
+ΨGΨΨCCΨGCCΨΨΨCΨΨCAGCAACGΨGACCΨGGΨΨCCAC
+&hellip;</pre>
+                Taille totale \( \approx 1.05 \) KiB
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="5">
+                <h2>Fun fact</h2>
+                Taille génome humain \( \approx 743 \) MiB
+                <img src="assets/gates.png" alt="Bill Gates CD" style="display: block; margin: auto;">
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Génotype vs phénotype</h1>
+            <ul>
+              <li>Génome = exons \( \cup \) introns</li>
+              <li>Exons: traduits en protéines</li>
+              <li>Introns: régulent l'expression des gènes</li>
+              <li>Humain: exome \( \approx 1.2 \% \) génome (\( \approx 8.9 \) Mb)</li>
+            </ul>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Marqueur génétique</h1>
+                <ul>
+                  <li><em>Représentant</em> d'une section du génome</li>
+                  <li>Possède des propriétés intéressantes</li>
+                  <li>Plus populaires: polymorphismes nucléotidique</li>
+                  <li>Anglais: Single-nucleotide polymorphism ou <em>SNP</em></li>
+                  <li>Substitution d'un unique nucléotide à une position donnée.</li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <h2>Pourquoi on &#x1f49c; les SNPs</h2>
+                <ul>
+                  <li>Denses (mais distribution non homogène)</li>
+                  <li>Souvent bialléliques \( \Rightarrow \{ 0, 1 \}\), allele majeure/mineure</li>
+                  <li>Faible taux de mutation \( \Rightarrow \) sites infinis</li>
+                  <li>Partitionent la population</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Processus de coalescence</h1>
+                <ul>
+                  <li>John Kingman, 1982<span class="reference">4</span></li>
+                  <li>Processus de &#x1faa6;mort pur&#x1faa6; sur les <em>relations d'équivalence</em> sur
+                    \(\{ 1, 2, \ldots, n \}\) &#x1f913</li>
+                  <li> égalité \( \to \) relation universelle</li>
+                  <li>&laquo;Avoir un ancêtre commun&raquo; est une relation d'équivalence</li>
+                  <li>Plus simple à comprendre en pratique</li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre id="coalescent-algorithm" class="pseudocode" style="display: hidden;">
+                  \begin{algorithm}
+                  \caption{Coalescent sur \( n \) séquences}
+                  \begin{algorithmic}
+                  \STATE \( S = \{ 1, 2, \ldots, n \}\)
+                  \STATE \( t \leftarrow 0 \)
+                  \WHILE{\( |S| > 1 \)} \COMMENT{\( n - 1 \) itérations}
+                  \STATE Choisir paire de séquences \( \{ x, y \} \) uniformément
+                  \STATE Mettre à jour \( t \leftarrow t + \text{Exp}(|S| - 1) \)
+                  \STATE Faire coalescer \( x \) avec \( y \) dans \( z \) au temps \( t \)
+                  \STATE Mettre à jour \( S \leftarrow (S \setminus \{ x, y \}) \cup \{ z \}\)
+                  \ENDWHILE
+                  \end{algorithmic}
+                  \end{algorithm}
+                </pre>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <div id="sample-pureCoal" class="r-stack">
+                  <img src="assets/sample-pureCoal1.svg" alt="Pure coalescent step 1"
+                       class="fragment fade-in-then-out" data-fragment-index="3">
+                  <img class="fragment fade-in-then-out" src="assets/sample-pureCoal2.svg"
+                       alt="Pure coalescent step 2">
+                  <img class="fragment fade-in-then-out" src="assets/sample-pureCoal3.svg"
+                       alt="Pure coalescent step 3">
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Mutations</h1>
+                <ul>
+                  <li>SNP bialléliques \( \Rightarrow \) beaucoup de restrictions</li>
+                  <li>mutations/position \( \leq 1 \) (sites
+                    infinis<span class="reference">5</span>)</li>
+                  <li>Pas d'homoplasie (sites infinis)</li>
+                  <li>Allèle majeur 0 \( \to \) allèle mineur 1</li>
+                  <li>Processus de Poisson sur les branches du graphe</li>
+                  <li>\( \Rightarrow \mathcal U \) conditionellement à
+                    l'arbre &amp; &#x23; mutations</li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <div id="sample-mutation" class="r-stack">
+                  <img src="assets/sample-mutation1.svg" alt="Mutation process 1"
+                       class="fragment fade-in-then-out" data-fragment-index="2">
+                  <img class="fragment fade-in-then-out" src="assets/sample-mutation2.svg"
+                       alt="Mutation process 2">
+                  <img class="fragment fade-in-then-out" src="assets/sample-mutation3.svg"
+                       alt="Mutation process 3">
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Recombinaisons</h1>
+                <ul>
+                  <li>Une séquence hérite de deux parents</li>
+                  <li>&laquo;Coalescence à l'envers&raquo;</li>
+                  <li>Créent structure de corrélation complexe entre marqueurs:
+                    <em>déséquilibre de liaison</em></li>
+                  <li>Fréquence de certaines paires d'allèles diffère de celle attendue</li>
+                  <li>Histoire: <span style="text-decoration: line-through; text-decoration-color: #e65100;">arbre</span>; suite <em>d'arbres marginaux</em> ou <em>graphe</em></li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <div id="sample-recombination" class="r-stack">
+                  <img class="fragment fade-in-then-out" src="assets/sample-mutation3.svg"
+                       alt="Mutation process 3" data-fragment-index="2">
+                  <img class="fragment fade-in-then-out" src="assets/sample-recombination.svg"
+                       alt="Recombination process 2">
+                </div>
+              </div>
+            </div>
           </section>
         </section>
+
         <section>
-          <h1>Code</h1>
-          <p>Are you ready for some awesome <code class="julia">content = "code"</code>?</p>
-          <pre class="julia"><code data-trim>
-              test = 41 + 1
-              function ret42(x::Int)
-              ret = 42 - x
-              ret + x
-              end
-          </code></pre>
-        </section>
-        <section>
-          Slide 2<br>
-          <a href="https://www.perdu.com">This is a link</a>
-        </section>
-        <section>
-          <h1>Title of the slide</h1>
-          <p>Sample unordered list:</p>
-          <ul>
-            <li>First item</li>
-            <li>Second item</li>
-          </ul>
-        </section>
-        <section>
-          <p>This integral is not as easy as \( 2 + \frac 4 2 = 4 \) &#x1F614;</p>
-          $$\begin{equation*}
-          \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
-          \end{equation*}$$
-        </section>
-        <section data-markdown>
-          <textarea data-template>
-            ## Slide 1
-            A paragraph with some text and a [link](http://hakim.se).
-            ---
-            ## Slide 2
-            A reference<span class="reference">1</span>
-            ---
-            ## Slide 3
-            Another reference<span class="reference">3</span>
-          </textarea>
-        </section>
+          <section class="title-slide">
+            <h1>Score de risque polygénique</h1>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Définition</h1>
+                <ul>
+                  <li>Somme pondérée de l'effet d'un ensemble de SNPs sur un phénotype
+                    quantitatif<span class="reference">6</span></li>
+                  <li>Poids basés sur la taille d'effet des SNPs estimés à partir d'une
+                    GWAS<span class="reference">6</span></li>
+                  <li>À l'origine, suppose que l'effet est <em>additif</em></li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <h2>PRS en pratique</h2>
+                <p>PRS \( \Leftrightarrow \) combinaison linéaire de comptes d'allèles.
+                  Score sur \( m \) allèles:</p>
+                $$
+                \textcolor{#e65100}{\overbrace{\hat s}^{\text{score}}} = \sum_{k = 1}^m
+                \textcolor{#4d7e65}{\underbrace{x_k}_{\text{compte}}}
+                \textcolor{#9558b2}{\overbrace{\hat{\beta}_k}^{\mathclap{\text{poids}}}}
+                $$
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Hypothèses</h1>
+            <ul>
+              <li>Additivité &amp; linéarité</li>
+              <li>Parfois peu vraisemblables</li>
+              <li>Estimation des \( \beta_k \) basée sur GLM</li>
+            </ul>
+            <br>
+            Cela étant dit,
+            <br>
+            <ul>
+              <li>Certains phénotypes sont simples</li>
+              <li>PRS fonctionnent souvent bien en pratique</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Épistasie</h1>
+            <ul>
+              <li>Interaction intragénomique</li>
+              <li>Difficulté majeure dans l'analyse des données de GWAS<span class="reference">7</span></li>
+              <li>Possible de mitiger, mais l'approche &laquo;naïve&raquo; est sans
+                espoir (\( \mathcal O(2^m) \) termes)</li>
+              <li>Par contre, certaines formes d'épistasie pourraient se refléter dans
+                des effets additifs <span class="reference">8</span></li>
+            </ul>
+          </section>
+          <section>
+            <h1>Épistasie vs machine learning &#x1f916;</h1>
+            <ul>
+              <li>Possible de relaxer les hypothèses</li>
+              <li>Toutefois, la sélection des marqueurs est le facteur
+                ayant le plus grand impact sur les capacités prédictives
+                d'un modèle de machine learning<span class="reference">9</span></li>
+              <li>Mécanisme d'action génotype \( \to \) phénotype largement inconnu</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Approche par vraisemblance</h1>
+            <ul>
+              <li>Objectif: tenir compte de l'épistasie <em>sans expliciter le modèle</em></li>
+              <li>En pratique: calculer la vraisemblance d'un
+                phénotype \( \varphi^* \) étant donné haplotype \( h_0^* \)</li>
+              <li class="column">Basée sur paires haplotypes-phénotypes</li>
+              $$
+              H_0 \bigtriangleup \Phi =
+              \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace
+              $$
+              <li>Notation: \( H_0^* = H_0 \cup \lbrace h_0^* \rbrace,
+                \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace \)</li>
+            </ul>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2" style="font-size: 35px;">
+                <h1>Fonction de vraisemblance</h1>
+                $$
+                L(\varphi^* | h_0^*, H_0, \Phi) \propto f(H_0^*, \Phi^*)
+                $$
+                En conditionnant sur l'histoire généalogique de l'échantillon:
+                $$
+                f(H_0^*, \Phi^*)
+                = \int_{\color{#4d7e65} \mathcal G} f(H_0^*, \Phi^* | {\color{#4d7e65} G})
+                g({\color{#4d7e65} G}) \text d{\color{#4d7e65} G}
+                $$
+                Par indépendance conditionelle
+                $$
+                f(H_0^*, \Phi^*)
+                = \int_{\color{#4d7e65} \mathcal G} f(H_0^* | {\color{#4d7e65} G})
+                f(\Phi^* | {\color{#4d7e65} G})
+                g({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}
+                $$
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <h2>Consistance</h2>
+                <ul>
+                  <li>\( G \) consistant avec \( H_0 \) si l'échantillon induit par \( G \) est \( H_0 \)</li>
+                  <li>\( \Rightarrow \) Une généalogie est consistante avec un unique échantillon</li>
+                </ul>
+                Donc,
+                $$
+                f(H_0^* | G) = \mathbb I(G \text{ consistant avec } H_0^*),
+                $$
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Vraisemblance: consistance</h1>
+            \( \mathcal G_{H_0^*} \subseteq \mathcal G \): généalogies consistante
+            avec \( H_0 \). La vraisemblance précédente s'écrit
+            $$
+            \begin{align*}
+            L(\varphi^*| H_0^*, \Phi)
+            &\propto \int_{\mathrlap{\color{#4d7e65} \mathcal G_{H_0^*}}} f(\Phi^* | {\color{#4d7e65} G})
+            g({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}\\
+            &= \int_{\color{#4d7e65} \mathcal G_{H_0^*}}
+            \frac{g({\color{#4d7e65} G})}{h({\color{#4d7e65} G})}
+            f(\Phi^* | {\color{#4d7e65} G})
+            h({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}
+            \end{align*}
+            $$
+            où \( \text{supp}(h) \subseteq {\color{#4d7e65} \mathcal G_{H_0^*}} \).
+          </section>
+          <section>
+            <h1>Contexte</h1>
+            <ul>
+              <li>\( G \sim ARG \)<span class="reference">10</span></li>
+              <li>\( \Phi \sim \mathcal L(\boldsymbol\theta) \)
+                (\( \boldsymbol\theta = p = \) prévalence par ex.)</li>
+              <li>\( \Phi \vert G \sim\; ??? \)</li>
+              <li>Cas simples (coalescence avec mutation): papier &amp; crayon&trade;</li>
+              <li>Corrélation complexe/recombinaisons: échantillonage préférentiel</li>
+            </ul>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Distribution conjointe de 2 phénotypes</h1>
+                <ul>
+                  <li>Une seule topologie possible</li>
+                  <li>Temps de coalescence exponentiel de taux 1</li>
+                </ul>
+                Donc,
+                $$
+                f(H_0, \Phi_0) = \int_0^{\infty} f(\varphi_1, \varphi_2 \vert t) e^{-t} \text d t
+                $$
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <img src="assets/two-phenotypes.svg" alt="Tree on 2 sequences">
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Modélisation de la dépendance</h1>
+                <ul>
+                  <li>Dépendance \( = f \)(temps de coalescence)</li>
+                  <li class="column">Si \( \psi \) mrca \( \varphi_1, \varphi_2 \), on veut</li>
+                  $$\begin{align*}
+                  \lim_{t \to \infty} F(\varphi_k, \psi \vert t) &= F(\varphi_k) F(\psi)
+                  \quad \text{(Indépendance totale)}\\
+                  \lim_{t \to 0} F(\varphi_k, \psi \vert t) &= \min\{ \varphi_k, \psi \}
+                  \quad \text{(Dépendance totale)}
+                  \end{align*}$$
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2" style="max-width: 100vw;">
+                <h2>Changement de variable</h2>
+                Soit \( \alpha_{\lambda}(t): \mathbb R_+ \to [0, 1] \) croissante telle que
+                $$
+                \lim_{t \to 0} \alpha_{\lambda}(t) = 0, \quad\quad
+                \lim_{t \to \infty} \alpha_{\lambda}(t) = 1.
+                $$
+                Alors,
+                $$
+                F(\varphi_1, \varphi_2 \vert t) =
+                \alpha_{\lambda}(t) F(\varphi_k) F(\psi) +
+                (1 - \alpha_{\lambda}(t)) \min\{ \varphi_k, \psi \}
+                $$
+                réalise les conditions précédentes (phénotype discret).
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Distribution conjointe induite</h1>
+                On peut montrer que
+                $$
+                \varphi_k | \psi, t \sim \mathcal B(1, \psi + \alpha_{\lambda}(t) q_{\psi}(q_{\psi}(p)))
+                $$
+                où \( q_{\psi}(x) = \psi + (-1)^{\psi}\).
+                <br>
+                En supposant \( \varphi_1 \vert \psi \perp \varphi_2 \vert \psi \),
+                $$\begin{align*}
+                f(\varphi_1, \varphi_2 \vert \psi, t)
+                = &(q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t)))^{\varphi_1 + \varphi_2}\\
+                &(1 - q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t)))^{2 - (\varphi_1 + \varphi_2)}
+                \end{align*}$$
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2" style="max-width: 100vw;">
+                Finalement, par indépendance entre \( \psi \) et \( t \),
+                $$
+                f(\varphi_1, \varphi_2 \vert t) =
+                \begin{cases}
+                (1 - p) (1 - \alpha_{\lambda}(t) p (2 - \alpha_{\lambda}(t))) &\text{si } \varphi_1 + \varphi_2 = 0\\
+                \alpha_{\lambda}(t) p (1 - p) (2 - \alpha_{\lambda}(t)) &\text{si } \varphi_1 + \varphi_2 = 1\\
+                p (1 - \alpha_{\lambda}(t) p (1 - p) (2 - \alpha_{\lambda}(t))) &\text{si } \varphi_1 + \varphi_2 = 2
+                \end{cases}.
+                $$
+                <ul>
+                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to 0]{\mathcal L} 2 \mathcal B(1, p) \)</li>
+                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to \infty]{\mathcal L} \mathcal B(2, p) \)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Vraisemblance explicite pour deux phénotypes</h1>
+            En prenant \( \alpha_{\lambda}(t) = 1 - e^t \), on obtient
+            $$\begin{align*}
+            f(H_0, \Phi)
+            &= \int_0^{\infty} f(\varphi_1, \varphi_2 \vert t) e^{-t} \text d t\\
+            &=
+            \begin{cases}
+            (1 - p) \left( 1 - \frac 2 3 p \right) &\text{si } \varphi_1 + \varphi_2 = 0\\
+            \frac 2 3 p (1 - p) &\text{si } \varphi_1 + \varphi_2 = 1\\
+            p \left( 1 - \frac 2 3 (1 - p) \right) &\text{si } \varphi_1 + \varphi_2 = 2
+            \end{cases}
+            \end{align*}$$
+          </section>
 
         <section id="references">
           <section class="title-slide">
@@ -81,14 +607,43 @@
           </section>
           <section>
             <ol>
-              <li>Croucha, D. J. M., &#38; Bodmer, W. F. (2020). Polygenic inheritance, GWAS, polygenic risk scores, and the search for functional variants. <i>Proceedings of the National Academy of Sciences of the United States of America</i>, <i>117</i>(32), 18924–18933. <a href="https://doi.org/10.1073/pnas.2005634117">https://doi.org/10.1073/pnas.2005634117</a></li>
-              <li>Meuwissen, T. H. E., Hayes, B. J., &#38; Goddard, M. E. (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. <i>Genetics</i>, <i>157</i>(4), 1819–1829. <a href="https://doi.org/10.1093/GENETICS/157.4.1819">https://doi.org/10.1093/GENETICS/157.4.1819</a></li>
+              <li>Ganapathy, G., Howard, J. T., Ward, J. M. et al. (2014). High-coverage sequencing and annotated assemblies of the budgerigar genome. <i>GigaScience</i>, <i>3</i>(1). <a href="https://doi.org/10.1186/2047-217X-3-11">https://doi.org/10.1186/2047-217X-3-11</a></li>
+              <li>
+                O’Leary, N. A., Wright, M. W., Brister, J. R. et al. (2016). Reference sequence (RefSeq) database at NCBI: current status, taxonomic expansion, and functional annotation. <i>Nucleic Acids Research</i>, <i>44</i>(D1), D733–D745. <a href="https://doi.org/10.1093/NAR/GKV1189">https://doi.org/10.1093/NAR/GKV1189</a>
+              </li>
+              <li>
+                WHO International Nonproprietary Names Programme 11889, 09/2020.
+              </li>
+              <li>
+                Kingman, J. F. C. (1982). The coalescent. <i>Stochastic Processes and Their Applications</i>, <i>13</i>(3), 235–248. <a href="https://doi.org/10.1016/0304-4149(82)90011-4">https://doi.org/10.1016/0304-4149(82)90011-4</a>
+              </li>
             </ol>
           </section>
           <section>
-            <ol start = 3>
-              <li>Slatkin, M. (2008). Exchangeable models of complex inherited diseases. <i>Genetics</i>, <i>179</i>(4), 2253–2261. <a href="https://doi.org/10.1534/genetics.107.077719">https://doi.org/10.1534/genetics.107.077719</a></li>
-              <li>Visscher, P. M., &#38; Wray, N. R. (2016). Concepts and Misconceptions about the Polygenic Additive Model Applied to Disease. <i>Human Heredity</i>, <i>80</i>(4), 165–170. <a href="https://doi.org/10.1159/000446931">https://doi.org/10.1159/000446931</a></li>
+            <ol start="5">
+              <li>
+                Kimura, M. (1969). The Number of Heterozygous Nucleotide Sites Maintained in a Finite Population Due to Steady Flux of Mutations. <i>Genetics</i>, <i>61</i>(4), 893. <a href="https://doi.org/10.1093/GENETICS/61.4.893">https://doi.org/10.1093/GENETICS/61.4.893</a>
+              </li>
+              <li>
+                Croucha, D. J. M., &#38; Bodmer, W. F. (2020). Polygenic inheritance, GWAS, polygenic risk scores, and the search for functional variants. <i>Proceedings of the National Academy of Sciences of the United States of America</i>, <i>117</i>(32), 18924–18933. <a href="https://doi.org/10.1073/pnas.2005634117">https://doi.org/10.1073/pnas.2005634117</a>
+              </li>
+              <li>
+                Furlong, L. I. (2013). Human diseases through the lens of network biology. <i>Trends in Genetics</i>, <i>29</i>(3), 150–159. <a href="https://doi.org/10.1016/J.TIG.2012.11.004">https://doi.org/10.1016/J.TIG.2012.11.004</a>
+              </li>
+            </ol>
+          </section>
+          <section>
+            <ol start="8">
+              <li>
+                Mäki-Tanila, A., &#38; Hill, W. G. (2014). Influence of Gene Interaction on Complex Trait Variation with Multilocus Models. <i>Genetics</i>, <i>198</i>(1), 355–367. <a href="https://doi.org/10.1534/GENETICS.114.165282">https://doi.org/10.1534/GENETICS.114.165282</a>
+              </li>
+
+              <li>
+                Ho, D. S. W., Schierding, W., Wake, M., Saffery, R., &#38; O’Sullivan, J. (2019). Machine learning SNP based prediction for precision medicine. <i>Frontiers in Genetics</i>, <i>10</i>(MAR), 267. <a href="https://doi.org/https://doi.org/10.3389/fgene.2019.00267">https://doi.org/https://doi.org/10.3389/fgene.2019.00267</a>
+              </li>
+              <li>
+                Griffiths, R. C., and Marjoram, P. (1996). An ancestral recombination graph. <i>IMA Volume on Mathematical Population Genetics</i> (P. Donnelly and S. Tavare, Eds.), Springer-Verlag, New York, 257–270
+              </li>
             </ol>
           </section>
         </section>
@@ -96,13 +651,11 @@
     </div>
 
     <div id="logo"><p>
-        Author (Institution)
+        P. Fournier, F. Larribe (UQAM)
         <span class="separator"></span>
-        Session
+        Séminaire STATQAM
         <span class="separator"></span>
-        Event (Venue)
-        <span class="separator"></span>
-        Date
+        17 novembre 2022
     </p></div>
 
     <div id="qrcode" alt="Slides"></div>
@@ -117,7 +670,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="dist/perso.js"></script>
-    <script type="text/javascript">qrcode.makeCode("www.patrickfournier.ca");</script>
+    <script type="text/javascript">qrcode.makeCode("www.patrickfournier.ca/talk-statqam");</script>
+    <script>
+      pseudocode.renderElement(document.getElementById("coalescent-algorithm"),
+                               { lineNumber: true, noEnd: true });
+    </script>
+    <script>pseudocode.renderClass("pseudocode");</script>
     <script>
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
