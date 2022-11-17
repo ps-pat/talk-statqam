@@ -365,7 +365,7 @@
 
 em {
   font-style: normal !important;
-  text-decoration: underline #9558b2 dashed 5px;
+  text-decoration: underline #9558b2 solid 5px;
 }
 
 i:not(.fas):not(.fa-circle) {

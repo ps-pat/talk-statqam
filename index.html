@@ -25,7 +25,6 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-          column-gap: 5%;
       }
 
       #cats > img {
@@ -36,14 +35,21 @@
      }
 
       #cats-trees {
-          display: flex;
-          align-items: center;
-          justify-items: center;
+          display: grid;
+          grid-template-columns: [left-tree] 45% [rel] 10% [right-tree] 45%;
 
-          max-width: 100vw;
-          min-width: 100vw;
+          /* display: flex; */
+          /* align-items: center; */
+          /* justify-items: center; */
+
+          max-width: 90vw;
+          min-width: 90vw;
           margin: 0;
           padding: 0;
+      }
+
+      #cats-trees > div {
+          flex: 1 1 0px;
       }
 
       #cats-trees img {
@@ -63,6 +69,9 @@
 
       #cats-rels {
           font-size: 100px;
+
+          flex-grow: 0.5;
+          flex-shrink: 10;
       }
 
       #cat-ineqs::after {
@@ -123,7 +132,60 @@
 
           transition-duration: 0s;
       }
-    </style>
+
+      #notation {
+          width: 100%;
+          height: 100%;
+      }
+
+      #notation svg {
+          visibility: hidden;
+          transition-duration: 1s;
+      }
+
+      #notation svg:nth-child(1) {
+          transition-duration: 0s;
+      }
+      #notation svg:nth-child(1) .sample {
+          visibility: visible;
+      }
+
+      #notation svg:nth-child(2) .coal1 {
+          visibility: visible;
+      }
+
+      #notation svg:nth-child(3) .coal2 {
+          visibility: visible;
+      }
+
+      #notation svg:nth-child(4) .graph-brace {
+          visibility: visible;
+      }
+
+      #notation svg:nth-child(5) .phenotypes {
+          visibility: visible;
+      }
+      </style>
+
+    <script>
+      // Please forgive me for what I'm about to do.
+      var animationHack = function(event) {
+          let phenotypes_fragment =
+              document.getElementById("phenotypes-fragment");
+          let sample_fragment = document.getElementById("sample-fragment");
+          let sample_elements = sample_fragment.querySelectorAll(".sample");
+
+          let visibility_status = "visible";
+          if (phenotypes_fragment.classList.contains("current-fragment"))
+              visibility_status = "hidden";
+
+          for (sample_element of sample_elements)
+              sample_element.style.visibility = visibility_status;
+      }
+
+      document.addEventListener("fragmentshown", animationHack);
+      document.addEventListener("fragmenthidden", animationHack);
+    </script>
   </head>
   <body>
     <div class="reveal">
@@ -217,12 +279,6 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
 &hellip;</pre>
                 Taille totale \( \approx 1.05 \) KiB
               </div>
-
-              <div class="fragment fade-in obox" data-fragment-index="5">
-                <h2>Fun fact</h2>
-                Taille génome humain \( \approx 743 \) MiB
-                <img src="assets/gates.png" alt="Bill Gates CD" style="display: block; margin: auto;">
-              </div>
             </div>
           </section>
           <section>
@@ -243,7 +299,7 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                   <li>Possède des propriétés intéressantes</li>
                   <li>Plus populaires: polymorphismes nucléotidique</li>
                   <li>Anglais: Single-nucleotide polymorphism ou <em>SNP</em></li>
-                  <li>Substitution d'un unique nucléotide à une position donnée.</li>
+                  <li>Substitution d'un unique nucléotide à une position donnée</li>
                 </ul>
               </div>
 
@@ -251,7 +307,7 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                 <h2>Pourquoi on &#x1f49c; les SNPs</h2>
                 <ul>
                   <li>Denses (mais distribution non homogène)</li>
-                  <li>Souvent bialléliques \( \Rightarrow \{ 0, 1 \}\), allele majeure/mineure</li>
+                  <li>Souvent bialléliques \( \Rightarrow \{ 0, 1 \}\), allèle majeur/mineur</li>
                   <li>Faible taux de mutation \( \Rightarrow \) sites infinis</li>
                   <li>Partitionent la population</li>
                 </ul>
@@ -308,7 +364,7 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                 <h1>Mutations</h1>
                 <ul>
                   <li>SNP bialléliques \( \Rightarrow \) beaucoup de restrictions</li>
-                  <li>mutations/position \( \leq 1 \) (sites
+                  <li>Mutations/position \( \leq 1 \) (sites
                     infinis<span class="reference">5</span>)</li>
                   <li>Pas d'homoplasie (sites infinis)</li>
                   <li>Allèle majeur 0 \( \to \) allèle mineur 1</li>
@@ -340,12 +396,12 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                   <li>Créent structure de corrélation complexe entre marqueurs:
                     <em>déséquilibre de liaison</em></li>
                   <li>Fréquence de certaines paires d'allèles diffère de celle attendue</li>
-                  <li>Histoire: <span style="text-decoration: line-through; text-decoration-color: #e65100;">arbre</span>; suite <em>d'arbres marginaux</em> ou <em>graphe</em></li>
+                  <li>Histoire: <span style="text-decoration: line-through; text-decoration-color: #e65100;">arbre</span>; <em>graphe</em></li>
                 </ul>
               </div>
 
               <div class="fragment fade-in obox" data-fragment-index="2">
-                <div id="sample-recombination" class="r-stack">
+                <div id="sample-recombination" class="r-stack" style="max-width: 100vw;">
                   <img class="fragment fade-in-then-out" src="assets/sample-mutation3.svg"
                        alt="Mutation process 3" data-fragment-index="2">
                   <img class="fragment fade-in-then-out" src="assets/sample-recombination.svg"
@@ -408,7 +464,7 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
               <li>Possible de mitiger, mais l'approche &laquo;naïve&raquo; est sans
                 espoir (\( \mathcal O(2^m) \) termes)</li>
               <li>Par contre, certaines formes d'épistasie pourraient se refléter dans
-                des effets additifs <span class="reference">8</span></li>
+                des effets additifs<span class="reference">8</span></li>
             </ul>
           </section>
           <section>
@@ -422,38 +478,59 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
             </ul>
           </section>
           <section>
-            <h1>Approche par vraisemblance</h1>
-            <ul>
-              <li>Objectif: tenir compte de l'épistasie <em>sans expliciter le modèle</em></li>
-              <li>En pratique: calculer la vraisemblance d'un
-                phénotype \( \varphi^* \) étant donné haplotype \( h_0^* \)</li>
-              <li class="column">Basée sur paires haplotypes-phénotypes</li>
-              $$
-              H_0 \bigtriangleup \Phi =
-              \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace
-              $$
-              <li>Notation: \( H_0^* = H_0 \cup \lbrace h_0^* \rbrace,
-                \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace \)</li>
-            </ul>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Approche par vraisemblance</h1>
+                <ul>
+                  <li>Objectif: tenir compte de l'épistasie <em>sans expliciter le modèle</em></li>
+                  <li>En pratique: calculer la vraisemblance d'un
+                    phénotype \( \varphi^* \) étant donné haplotype \( h_0^* \)</li>
+                  <li class="column">Basée sur paires haplotypes-phénotypes</li>
+                  $$
+                  H_0 \bigtriangleup \Phi =
+                  \left\lbrace (h_0^1, \varphi_1), \ldots, (h_0^n, \varphi_n) \right\rbrace
+                  $$
+                  <li>Notation: \( H_0^* = H_0 \cup \lbrace h_0^* \rbrace,
+                    \Phi^* = \Phi \cup \lbrace \varphi^* \rbrace \)</li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2"
+                   style="height: 75vh; width: 90vw; overflow: hidden;">
+                <div id="notation" class="r-stack">
+                  <svg class="fragment" data-fragment-index="2" id="sample-fragment"
+                       data-src="assets/notations1.svg" data-cache="disabled" width="100%" height="100%"/>
+                  <svg class="fragment fade-up"
+                       data-src="assets/notations1.svg" data-cache="disabled" width="100%" height="100%"/>
+                  <svg class="fragment fade-up"
+                       data-src="assets/notations1.svg" data-cache="disabled" width="100%" height="100%"/>
+                  <svg class="fragment fade-left"
+                       data-src="assets/notations1.svg" data-cache="disabled" width="100%" height="100%"/>
+                  <svg class="fragment fade-in" id="phenotypes-fragment"
+                       data-src="assets/notations1.svg" data-cache="disabled" width="100%" height="100%"/>
+                </div>
+              </div>
+            </div>
           </section>
           <section>
             <div class="r-stack">
               <div class="fragment semi-fade-out" data-fragment-index="2" style="font-size: 35px;">
                 <h1>Fonction de vraisemblance</h1>
                 $$
-                L(\varphi^* | h_0^*, H_0, \Phi) \propto f(H_0^*, \Phi^*)
+                L(\varphi^* | h_0^*, H_0, \Phi) \propto f({\color{#e65100} H_0^*}, {\color{#e65100} \Phi^*})
                 $$
                 En conditionnant sur l'histoire généalogique de l'échantillon:
                 $$
-                f(H_0^*, \Phi^*)
-                = \int_{\color{#4d7e65} \mathcal G} f(H_0^*, \Phi^* | {\color{#4d7e65} G})
+                f({\color{#e65100} H_0^*}, {\color{#e65100} \Phi^*})
+                = \int_{\color{#4d7e65} \mathcal G}
+                f({\color{#e65100} H_0^*}, {\color{#e65100} \Phi^*} | {\color{#4d7e65} G})
                 g({\color{#4d7e65} G}) \text d{\color{#4d7e65} G}
                 $$
                 Par indépendance conditionelle
                 $$
-                f(H_0^*, \Phi^*)
-                = \int_{\color{#4d7e65} \mathcal G} f(H_0^* | {\color{#4d7e65} G})
-                f(\Phi^* | {\color{#4d7e65} G})
+                f({\color{#e65100} H_0^*}, {\color{#e65100} \Phi^*})
+                = \int_{\color{#4d7e65} \mathcal G} f({\color{#e65100} H_0^*} | {\color{#4d7e65} G})
+                f({\color{#e65100} \Phi^*} | {\color{#4d7e65} G})
                 g({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}
                 $$
               </div>
@@ -461,32 +538,35 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
               <div class="fragment fade-in obox" data-fragment-index="2">
                 <h2>Consistance</h2>
                 <ul>
-                  <li>\( G \) consistant avec \( H_0 \) si l'échantillon induit par \( G \) est \( H_0 \)</li>
+                  <li>\(\color{4d7e65} G \) consistant avec \(\color{#e65100} H_0 \) si
+                    l'échantillon induit par \(\color{4d7e65} G \) est \(\color{#e65100} H_0 \)</li>
                   <li>\( \Rightarrow \) Une généalogie est consistante avec un unique échantillon</li>
                 </ul>
                 Donc,
                 $$
-                f(H_0^* | G) = \mathbb I(G \text{ consistant avec } H_0^*),
+                f({\color{#e65100} H_0^*} | {\color{#4d7e65} G})
+                = \mathbb I({\color{#4d7e65} G} \text{ consistant avec } {\color{#e65100} H_0^*}).
                 $$
               </div>
             </div>
           </section>
           <section>
             <h1>Vraisemblance: consistance</h1>
-            \( \mathcal G_{H_0^*} \subseteq \mathcal G \): généalogies consistante
-            avec \( H_0 \). La vraisemblance précédente s'écrit
+            \( {\color{#4d7e65} \mathcal G}_{\color{#e65100} H_0^*} \subseteq {\color{#4d7e65} \mathcal G} \):
+            généalogies consistante avec \(\color{#e65100} H_0 \). La vraisemblance précédente s'écrit
             $$
             \begin{align*}
             L(\varphi^*| H_0^*, \Phi)
-            &\propto \int_{\mathrlap{\color{#4d7e65} \mathcal G_{H_0^*}}} f(\Phi^* | {\color{#4d7e65} G})
+            &\propto \int_{\mathrlap{{\color{#4d7e65} \mathcal G}_{\color{#e65100} H_0^*}}}
+            f({\color{#e65100} \Phi^*} | {\color{#4d7e65} G})
             g({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}\\
-            &= \int_{\color{#4d7e65} \mathcal G_{H_0^*}}
+            &= \int_{{\color{#4d7e65} \mathcal G}_{\color{#e65100} H_0^*}}
             \frac{g({\color{#4d7e65} G})}{h({\color{#4d7e65} G})}
-            f(\Phi^* | {\color{#4d7e65} G})
+            f({\color{#e65100} \Phi^*} | {\color{#4d7e65} G})
             h({\color{#4d7e65} G}) \text d {\color{#4d7e65} G}
             \end{align*}
             $$
-            où \( \text{supp}(h) \subseteq {\color{#4d7e65} \mathcal G_{H_0^*}} \).
+            où \( \text{supp}(h) \supseteq {\color{#4d7e65} \mathcal G}_{\color{#e65100} H_0^*} \).
           </section>
           <section>
             <h1>Contexte</h1>
@@ -509,7 +589,10 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                 </ul>
                 Donc,
                 $$
-                f(H_0, \Phi_0) = \int_0^{\infty} f(\varphi_1, \varphi_2 \vert t) e^{-t} \text d t
+                f(H_0, \Phi_0) = \int_{\color{#4d7e65} 0}^{\color{#4d7e65} \infty}
+                f({\color{#e65100} \varphi_1}, {\color{#e65100} \varphi_2} \vert {\color{#4d7e65} t})
+                e^{-{\color{#4d7e65} t}}
+                \text d {\color{#4d7e65} t}
                 $$
               </div>
 
@@ -526,26 +609,26 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                   <li>Dépendance \( = f \)(temps de coalescence)</li>
                   <li class="column">Si \( \psi \) mrca \( \varphi_1, \varphi_2 \), on veut</li>
                   $$\begin{align*}
-                  \lim_{t \to \infty} F(\varphi_k, \psi \vert t) &= F(\varphi_k) F(\psi)
-                  \quad \text{(Indépendance totale)}\\
-                  \lim_{t \to 0} F(\varphi_k, \psi \vert t) &= \min\{ \varphi_k, \psi \}
-                  \quad \text{(Dépendance totale)}
+                  \lim_{t \to \infty} F(\varphi_k, \psi \vert t) &= {\color{#4d7e65} F(\varphi_k) F(\psi)}
+                  \quad \text{(Indép. totale)}\\
+                  \lim_{t \to 0} F(\varphi_k, \psi \vert t) &= {\color{#4d7e65} \min\{ \varphi_k, \psi \}}
+                  \quad \text{(Dép. totale)}
                   \end{align*}$$
                 </ul>
               </div>
 
               <div class="fragment fade-in obox" data-fragment-index="2" style="max-width: 100vw;">
                 <h2>Changement de variable</h2>
-                Soit \( \alpha_{\lambda}(t): \mathbb R_+ \to [0, 1] \) croissante telle que
+                Soit \({\color{#e65100} \alpha_{\lambda}(t)}: \mathbb R_+ \to [0, 1] \) croissante telle que
                 $$
-                \lim_{t \to 0} \alpha_{\lambda}(t) = 0, \quad\quad
-                \lim_{t \to \infty} \alpha_{\lambda}(t) = 1.
+                \lim_{t \to 0} {\color{#e65100} \alpha_{\lambda}(t)} = 0, \quad\quad
+                \lim_{t \to \infty} {\color{#e65100} \alpha_{\lambda}(t)} = 1.
                 $$
                 Alors,
                 $$
                 F(\varphi_1, \varphi_2 \vert t) =
-                \alpha_{\lambda}(t) F(\varphi_k) F(\psi) +
-                (1 - \alpha_{\lambda}(t)) \min\{ \varphi_k, \psi \}
+                {\color{#e65100} \alpha_{\lambda}(t)} {\color{4d7e65} F(\varphi_k) F(\psi)} +
+                {\color{#e65100} (1 - \alpha_{\lambda}(t))} {\color{#4d7e65} \min\{ \varphi_k, \psi \}}
                 $$
                 réalise les conditions précédentes (phénotype discret).
               </div>
@@ -557,53 +640,133 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
                 <h1>Distribution conjointe induite</h1>
                 On peut montrer que
                 $$
-                \varphi_k | \psi, t \sim \mathcal B(1, \psi + \alpha_{\lambda}(t) q_{\psi}(q_{\psi}(p)))
+                \varphi_k | \psi, t \sim \mathcal B(1, {\color{#e65100} q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t))})
                 $$
-                où \( q_{\psi}(x) = \psi + (-1)^{\psi}\).
+                où \( q_{\psi}(x) = \psi + (-1)^{\psi} x \).
                 <br>
                 En supposant \( \varphi_1 \vert \psi \perp \varphi_2 \vert \psi \),
                 $$\begin{align*}
                 f(\varphi_1, \varphi_2 \vert \psi, t)
-                = &(q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t)))^{\varphi_1 + \varphi_2}\\
-                &(1 - q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t)))^{2 - (\varphi_1 + \varphi_2)}
+                = &({\color{#e65100} q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t))})^{\varphi_1 + \varphi_2}\\
+                &(1 - {\color{#e65100} q_{\psi}(q_{\psi}(p) \alpha_{\lambda}(t))})^{2 - (\varphi_1 + \varphi_2)}
                 \end{align*}$$
               </div>
 
-              <div class="fragment fade-in obox" data-fragment-index="2" style="max-width: 100vw;">
-                Finalement, par indépendance entre \( \psi \) et \( t \),
+              <div class="fragment fade-in obox" data-fragment-index="2"
+                   style="max-width: 100vw; font-size: 30px;">
+                Par indépendance entre \( \psi \) et \( t \),
                 $$
                 f(\varphi_1, \varphi_2 \vert t) =
                 \begin{cases}
                 (1 - p) (1 - \alpha_{\lambda}(t) p (2 - \alpha_{\lambda}(t))) &\text{si } \varphi_1 + \varphi_2 = 0\\
                 \alpha_{\lambda}(t) p (1 - p) (2 - \alpha_{\lambda}(t)) &\text{si } \varphi_1 + \varphi_2 = 1\\
-                p (1 - \alpha_{\lambda}(t) p (1 - p) (2 - \alpha_{\lambda}(t))) &\text{si } \varphi_1 + \varphi_2 = 2
+                p (1 - \alpha_{\lambda}(t) (1 - p) (2 - \alpha_{\lambda}(t))) &\text{si } \varphi_1 + \varphi_2 = 2
                 \end{cases}.
                 $$
-                <ul>
-                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to 0]{\mathcal L} 2 \mathcal B(1, p) \)</li>
-                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to \infty]{\mathcal L} \mathcal B(2, p) \)</li>
+                <ul style="line-height: 3em;">
+                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to 0]{\mathcal L}
+                    {\color{#e65100} 2} \mathcal B(1, p) \)</li>
+                  <li>\( \varphi_1 + \varphi_2 \xrightarrow[t \to \infty]{\mathcal L}
+                    \mathcal B({\color{#e65100} 2}, p) \)</li>
                 </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="3" style="font-size: 30px;">
+                En prenant \( \alpha_{\lambda}(t) = 1 - e^{-t} \), on obtient
+                $$
+                f(H_0, \Phi)
+                =
+                \begin{cases}
+                {\color{#4c2c92}(1 - p) \left( 1 - \frac 2 3 p \right)}
+                  &\text{si } \varphi_1 + \varphi_2 = 0\\
+                {\color{#2e8540} \frac 2 3 p (1 - p)}
+                  &\text{si } \varphi_1 + \varphi_2 = 1\\
+                {\color{#e31c3d} p \left( 1 - \frac 2 3 (1 - p) \right)}
+                  &\text{si } \varphi_1 + \varphi_2 = 2
+                \end{cases}.
+                $$
+                <div style="text-align: center;">
+                  <img src="assets/joint_pdf.svg" width="60%">
+                </div>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="4" style="font-size: 30px;">
+                <h2>Vraisemblance!</h2>
+                $$
+                \begin{equation*}
+                L(\varphi_1 \vert H_0, \varphi_2) =
+                \begin{cases}
+                {\color{#e65100} 1 - \frac 2 3 p} &\text{si } \varphi_1 = \varphi_2 = 0\\
+                {\color{#e65100} \frac 2 3 p} &\text{si } \varphi_1 = 1, \varphi_2 = 0\\
+                {\color{#4d7e65} \frac 2 3 ( 1 - p)} &\text{si } \varphi_1 = 0, \varphi_2 = 1\\
+                {\color{#4d7e65}1 - \frac 2 3 (1 - p)} &\text{si } \varphi_1 = \varphi_2 = 1
+                \end{cases}.
+                \end{equation*}
+                $$
+                Donc,
+                $$
+                \varphi_1 \vert H_0, \varphi_2 \sim \mathcal
+                B \left( \varphi_2 + (-1)^{\varphi_2} \frac 2 3
+                \left( \varphi_2 + (-1)^{\varphi_2} p \right)\right)
+                $$
               </div>
             </div>
           </section>
           <section>
-            <h1>Vraisemblance explicite pour deux phénotypes</h1>
-            En prenant \( \alpha_{\lambda}(t) = 1 - e^t \), on obtient
-            $$\begin{align*}
-            f(H_0, \Phi)
-            &= \int_0^{\infty} f(\varphi_1, \varphi_2 \vert t) e^{-t} \text d t\\
-            &=
-            \begin{cases}
-            (1 - p) \left( 1 - \frac 2 3 p \right) &\text{si } \varphi_1 + \varphi_2 = 0\\
-            \frac 2 3 p (1 - p) &\text{si } \varphi_1 + \varphi_2 = 1\\
-            p \left( 1 - \frac 2 3 (1 - p) \right) &\text{si } \varphi_1 + \varphi_2 = 2
-            \end{cases}
-            \end{align*}$$
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2"
+                   style="font-size: 28px;">
+                <h1>Vraisemblance: coalescent pur</h1>
+                <ul>
+                  <li>Feuilles: \( 1, \ldots, n \)</li>
+                  <li>\( \varphi_k^l, \varphi_k^r \): phénotypes des
+                    enfants de la séquence \( k \)</li>
+                  <li>\( \sigma(G) \) permutation sur paires de feuilles
+                    coalescentes de \( G \)</li>
+                </ul>
+                $$\begin{align*}
+                f(\Phi \vert G) =
+                \frac{2^{\sigma(G)}}{n} \int_{\mathcal R_+^{n - 1}} \int_{\Psi^{n - 2}}
+                &\left( \prod_{k = n + 1}^{2 (n - 2)}
+                f(\varphi_k^l, \varphi_k^r \vert \varphi_k, t_{n + 1}, t_{n + 2}, \ldots, t_k) \right)\\
+                &f(\varphi_{2 n - 3}, \varphi_{2 n - 2} \vert t_{n + 1}, t_{n + 2}, \ldots, t_{2 n - 1})\\
+                &\exp \left( \sum_{k = 1}^{n - 1} (n - k) t_{n + k} \right)\\
+                &\text d \varphi_{n + 1} \cdots \text d \varphi_{2n - 1} \text d t_{n + 1} \cdots \text d t_{2 n - 1}
+                \end{align*}$$
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <img src="assets/sample-mutation3.svg" alt="Mutation process 3">
+              </div>
+            </div>
           </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2"
+                   style="font-size: 28px;">
+                <h1>Vraisemblance: ARG</h1>
+                <ul>
+                  <li>Même stratégie: conditionner sur les sommets internes</li>
+                  <li>\( \varphi_k^L, \varphi_k^R \): phénotypes des
+                    parents de la séquence \( k \)</li>
+                </ul>
+                $$
+                F(\varphi_k \vert \varphi_k^L, \varphi_k^R) =
+                {\color{#e65100} \alpha_{\lambda}(t)} {\color{4d7e65} F(\varphi_k) F(\varphi_k^L) F(\varphi_k^R)} +
+                {\color{#e65100} (1 - \alpha_{\lambda}(t))} {\color{#4d7e65} \min\{ \varphi_k, \varphi_k^L, \varphi_k^R \}}
+                $$
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <img src="assets/sample-recombination.svg" alt="Recombination process 2">
+              </div>
+            </div>
+          </section>
+        </section>
 
         <section id="references">
           <section class="title-slide">
-            <h1>References</h1>
+            <h1>Reférences</h1>
           </section>
           <section>
             <ol>
@@ -675,7 +838,9 @@ GGΨGΨΨCAGAΨCCAGCGΨGCΨGCACΨCΨACCCAGGACC
       pseudocode.renderElement(document.getElementById("coalescent-algorithm"),
                                { lineNumber: true, noEnd: true });
     </script>
-    <script>pseudocode.renderClass("pseudocode");</script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async>
+    </script>
+
     <script>
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
